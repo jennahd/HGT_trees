@@ -69,24 +69,32 @@ mkdir workflow/databases
 *Place the following files where you'd like on your machine and add a soft link to the database folder*
 
 **taxonomy - only "fullnamelineage.dmp" needed, other files can be removed**
+```
 wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz
 tar -zxvf new_taxdump.tar.gz
+```
 
 **all nr proteins AND diamond nr blast database**
+```
 wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nr.gz
 diamond makedb --in nr.gz --db nr.dmnd
+```
 
 **NCBI nr database**
+```
 wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/v5/nr.*.tar.gz
 wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/v5/nr.*.tar.gz.md5
 for i in *.md5 ; do md5sum -c $i ; done
 for i in *.tar.gz ; do tar -zxvf $i ; done
+```
 
 ## Useing pipeline
 
 ### Edit config file as needed
+```
 vim config/example_config.yaml
 mv config/example_config.yaml config/config.yaml
+```
 
 Can change the name of the config file to any name of your choice. In general it's good practice to have a different config file for each run you do of the pipeline and to save them for reproducibility.
 
@@ -129,10 +137,16 @@ This is so that the species names and colours can be added to the final pdfs, an
 
 ### Execute workflow
 activate environment:
+```
 conda activate snakemake_HGT_trees
+```
 
 Use a dry run first to check that everything is working:
+```
 snakemake -n --configfile config.yaml 
+```
 
 Run:
+```
 snakemake --cores #_cores --configfile config.yaml
+```
