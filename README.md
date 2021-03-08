@@ -130,8 +130,7 @@ protein_ID_3.faa etc.
 
 Inside the fasta file, the headers should have the species ID seperated from the accession and description with a pipe "|":
 
->Species_ID_1|accession_description
-MHTEFF...
+">Species_ID_1|accession_description MHTEFF..."
 
 This is so that the species names and colours can be added to the final pdfs, and information about whether a species is "focal" (i.e., should be used for selecting subtrees)
 
