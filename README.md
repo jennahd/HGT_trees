@@ -4,7 +4,26 @@ Workflow implemented using Snakemake for running phylogenetic trees to assess th
 ## Workflow outline
 
 1. Sequences of interest are searched against the NR NCBI database
-2. Hits are collated and 
+2. Hits are collated and unique sequences downloaded.
+3. Hits are reduced based on sequence identity (based on the given percent cut-off, 0.7 to 0.8 recommended)
+4. Taxonomy is added to sequence headers
+5. Initial alignment and trimming step
+6. Removal of short sequences (< 40% of the alignment length)
+7. Initial fasttree and identification of sequences on long branches (i.e., outliers)
+8. Second alignment, trimming, and fasttree step with the long branching sequences removed
+9. Idenficiation of subtrees within the larger tree that include the "focal" sequences of interest
+10. Selection of up to 3 subtrees with the most number of "focal" sequences (this number is currently hardcoded at the top of the snakefile, but can be changed manually) within the min and max bounds of numbers of taxa, alongside appropriate outgroup sequences (based on midpoint rooting of the intial large tree)
+11. Alignment, trimming, and fasttree of each of the subtrees
+12. Interproscan domains for subtree sequences determined and pfam domains will be included in the final tree pdfs
+13. In the final tree pdf, all subtrees are coloured according to phylum (same colours across proteins included in one run), and rooted by the outgroup, with species names added and coloured according to a mapping file. The "focal" group of sequences of interest is indicated, and pfam domains are mapped to each sequence included.
+14. The taxonomy of the group sister to the "focal" group and that subtending it "nested" (support >= 0.7), is then investigated at domain, superphylum, and phylum levels, and a "source" identified at majority cutoffs of 50, 75, 90, and 100 % for each.
+15. The results are plotted across all proteins included in the same run.
+
+If you would like to run more robust ML trees (for example with IQ-TREE), do so from the final trimmed alginments and then run the following bash script to create the pdfs and determine HGT source taxonomy:
+
+scripts/run_labelling_HGT_sources.sh
+
+*Here support needs to be >= 80 (for ultrafast bootstraps)
 
 ## Installation
 
